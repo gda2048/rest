@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'django_summernote',
     'rest_framework',
     'rest_framework.authtoken',
-    'djoser'
+    'djoser',
+
+    'chat_room.apps.ChatRoomConfig',
 ]
 
 MIDDLEWARE = [
