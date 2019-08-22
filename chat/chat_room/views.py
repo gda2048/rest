@@ -21,7 +21,7 @@ class MessageAPI(APIView):
 
     def get(self, request):
         messages = Message.objects.filter(room=request.GET.get("room"))
-        serializer = MessageSerializer(messages, many=True)
+        serializer = MessageSerializer(messages, many=True) 
         return Response({"data": serializer.data})
 
     def post(self, request):
