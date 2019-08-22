@@ -1,5 +1,5 @@
 from django.contrib import admin
-from chat_room.models import Room
+from chat_room.models import Room, Message
 
 
 @admin.register(Room)
@@ -10,3 +10,9 @@ class RoomAdmin(admin.ModelAdmin):
 
     def invited_user(self, obj):
         return "\n".join([user.username for user in obj.invited.all()])
+
+
+@admin.register(Message)
+class ChatAdmin(admin.ModelAdmin):
+    """Char admin"""
+    list_display = ("room", "user", "text", "date")
