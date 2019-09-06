@@ -1,11 +1,10 @@
 <template>
   <div>
-    <ul>
-      <li v-for='room in rooms'>
-        <h3>{{room.creator.username}}</h3>
-        {{room.date}}
-      </li>
-    </ul>
+    <div v-for="dialog in dialogs">
+      <h2>{{dialog.user.username}}</h2>
+      <p>{{dialog.text}}</p>
+      <span>{{dialog.date}}</span>
+    </div>
   </div>
 </template>
 
@@ -13,34 +12,37 @@
   import $ from 'jquery'
 
   export default {
-    name: "Room",
+    name: "dialog",
+    props: {
+      id: ""
+    },
     data() {
       return {
-        rooms: '',
+        dialogs: '',
       }
     },
-
     created() {
       $.ajaxSetup(
         {
           headers: {'Authorization': "Token " + sessionStorage.getItem("auth_token")}
         }
       );
-      this.loadRoom();
-
+      this.loadDialog();
     },
     methods: {
-      loadRoom() {
+      loadDialog() {
         $.ajax({
-          url: "http://127.0.0.1:8090/api/v1/chat/room",
+          url: "http://127.0.0.1:8090/api/v1/chat/message/",
           type: 'GET',
+          data: {
+            "room": this.id
+          },
           success: (response) => {
-            this.rooms = response.data.data;
-            console.log(response)
+            this.dialogs = response.data.data;
           }
         })
       }
-    },
+    }
   }
 </script>
 
